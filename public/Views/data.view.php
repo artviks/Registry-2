@@ -32,8 +32,8 @@
     <br>
     <label for="code">Personal Code:</label>
     <br>
-    <input type="text" id="code" name="code" required>
-<!--           pattern="" title="Use correct form"-->
+    <input type="text" id="code" name="code" required
+           pattern="(\d{6}[-]*\d{5})" title="Use correct form">
 
     <br>
     <label for="description">Description:</label>
