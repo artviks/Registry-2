@@ -35,4 +35,14 @@ class PersonService
         $this->storage->updateDescription($description, $id);
     }
 
+    public function updateAge(int $age, int $id): void
+    {
+        $this->storage->updateAge($age, $id);
+    }
+
+    public function updateAddress(string $address, int $id): void
+    {
+        $this->storage->updateAddress($address, $id);
+    }
+
 }

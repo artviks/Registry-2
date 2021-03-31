@@ -50,4 +50,22 @@ class PersonsController
 
         header('Location:/data');
     }
+
+    public function updateAge(): void
+    {
+        $id = array_key_first($_POST);
+        $age = $_POST[$id];
+        $this->service->updateAge($age, $id);
+
+        header('Location:/data');
+    }
+
+    public function updateAddress(): void
+    {
+        $id = array_key_first($_POST);
+        $address = $_POST[$id];
+        $this->service->updateAddress($address, $id);
+
+        header('Location:/data');
+    }
 }

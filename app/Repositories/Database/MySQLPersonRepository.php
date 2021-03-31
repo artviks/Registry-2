@@ -53,6 +53,23 @@ class MySQLPersonRepository implements PersonRepository
         $this->pdo->exec($sql);
     }
 
+    public function updateAge(int $age, int $id): void
+    {
+        $sql = "update $this->table set 
+                 age = $age where id = $id";
+
+        $this->pdo->exec($sql);
+    }
+
+    public function updateAddress(string $address, int $id): void
+    {
+        $sql = "update $this->table set 
+                 address = '$address' where id = $id";
+
+        $this->pdo->exec($sql);
+    }
+
+
     private function getPersonCollection(string $sql): PersonCollection
     {
         $statement = $this->pdo->query($sql);
@@ -61,7 +78,14 @@ class MySQLPersonRepository implements PersonRepository
         $col = new PersonCollection();
         foreach ($persons as $person)
         {
-            $p = new Person($person['name'], $person['surname'], $person['code'], $person['description']);
+            $p = new Person(
+                $person['name'],
+                $person['surname'],
+                $person['code'],
+                $person['age'],
+                $person['address'],
+                $person['description'],
+            );
             $p->setId($person['id']);
             $col->add($p);
         }

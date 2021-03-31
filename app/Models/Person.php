@@ -8,14 +8,24 @@ class Person
     private string $name;
     private string $surname;
     private string $code;
-    private string $description;
+    private ?string $description;
+    private ?string $age;
+    private ?string $address;
 
-    public function __construct(string $name, string $surname, string $code, string $description = '')
+    public function __construct(
+        string $name,
+        string $surname,
+        string $code,
+        string $age = null,
+        string $address = null,
+        string $description = null)
     {
         $this->name = $name;
         $this->surname = $surname;
         $this->code = $code;
         $this->description = $description;
+        $this->age = $age;
+        $this->address = $address;
     }
 
     public function name(): string
@@ -33,7 +43,17 @@ class Person
         return $this->code;
     }
 
-    public function description(): string
+    public function age(): ?string
+    {
+        return $this->age;
+    }
+
+    public function address(): ?string
+    {
+        return $this->address;
+    }
+
+    public function description(): ?string
     {
         return $this->description;
     }
