@@ -1,0 +1,28 @@
+{% include 'Partials/header.twig' %}
+
+<h2>DATA</h2>
+
+<table>
+<tr>
+    <th>Name</th>
+    <th>Surname</th>
+    <th>Personal Code</th>
+    <th>Age</th>
+    <th>Address</th>
+    <th>Description</th>
+</tr>
+{% for person in persons %}
+    <tr>
+        <td>{{ person.name }}</td>
+        <td>{{ person.surname }}</td>
+        <td>{{ person.code }}</td>
+        <td>{{ person.age }}</td>
+        <td>{{ person.address }}</td>
+        <td>{{ person.description }}</td>
+    </tr>
+{% endfor %}
+</table>
+
+
+
+{% include 'Partials/footer.twig' %}

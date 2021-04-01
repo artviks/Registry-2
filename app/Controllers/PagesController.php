@@ -3,36 +3,39 @@
 namespace App\Controllers;
 
 use App\Services\PersonService;
+use Twig\Environment;
 
 class PagesController
 {
     private PersonService $service;
+    private Environment $twig;
 
-    public function __construct(PersonService $service)
+    public function __construct(PersonService $service, Environment $twig)
     {
         $this->service = $service;
+        $this->twig = $twig;
     }
 
     public function home(): void
     {
-        require __DIR__ . './../../public/Views/index.view.php';
+        $this->twig->display('index.view.twig');
     }
 
     public function data(): void
     {
-        $persons = $this->service->selectAll();
-
-        require __DIR__ . './../../public/Views/data.view.php';
+        $this->twig->display('data.view.twig', [
+            'persons' => $this->service->selectAll()->collection()
+        ]);
     }
 
     public function add(): void
     {
-        require __DIR__ . './../../public/Views/addData.view.php';
+        $this->twig->display('addData.view.twig');
     }
 
     public function search(): void
     {
-        require __DIR__ . './../../public/Views/search.view.php';
+        $this->twig->display('search.view.twig');
     }
 
 }

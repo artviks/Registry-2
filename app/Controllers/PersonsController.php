@@ -4,15 +4,18 @@ namespace App\Controllers;
 
 use App\Models\Person;
 use App\Services\PersonService;
+use Twig\Environment;
 
 class PersonsController
 {
 
     private PersonService $service;
+    private Environment $twig;
 
-    public function __construct(PersonService $service)
+    public function __construct(PersonService $service, Environment $twig)
     {
         $this->service = $service;
+        $this->twig = $twig;
     }
 
     public function add(): void
@@ -27,21 +30,21 @@ class PersonsController
                 $_POST['description']
             ));
 
-        header('Location:/data');
+        header('Location:/add');
     }
 
     public function search(): void
     {
-        $persons = $this->service->findPersonBy($_GET['condition']);
-
-        require __DIR__ . './../../public/Views/search.view.php';
+        $this->twig->display('search.view.twig', [
+            'persons' => $this->service->findPersonBy($_GET['condition'])->collection()
+        ]);
     }
 
     public function edit(): void
     {
-        $person = $this->service->findPersonById($_GET['id']);
-
-        require __DIR__ . './../../public/Views/edit.view.php';
+        $this->twig->display('edit.view.twig', [
+            'person' => $this->service->findPersonById($_GET['id'])
+        ]);
     }
 
     public function update(): void

@@ -1,4 +1,4 @@
-<?php require 'Partials/header.php' ?>
+{% include 'Partials/header.twig' %}
 
     <h2>SEARCH</h2>
 
@@ -7,7 +7,7 @@
         <input type="text" name="condition">
     </form>
 
-<?php if(isset($persons)){ ?>
+{% if persons %}
     <br>
     <table>
     <tr>
@@ -18,22 +18,23 @@
         <th>Address</th>
         <th>Description</th>
     </tr>
-    <?php foreach ($persons->collection() as $person) :?>
+    {% for person in persons %}
         <tr>
-            <td><?= $person->name() ?></td>
-            <td><?= $person->surname() ?></td>
-            <td><?= $person->code() ?></td>
-            <td><?= $person->age() ?></td>
-            <td><?= $person->address() ?></td>
-            <td><?= $person->description() ?></td>
+            <td>{{ person.name }}</td>
+            <td>{{ person.surname }}</td>
+            <td>{{ person.code }}</td>
+            <td>{{ person.age }}</td>
+            <td>{{ person.address }}</td>
+            <td>{{ person.description }}</td>
             <td>
                 <form method="GET" action="/edit">
-                    <input type="hidden" name="id" value=<?= $person->id() ?>>
+                    <input type="hidden" name="id" value={{ person.id }}>
                     <input type="submit" value="Edit">
                 </form>
             </td>
         </tr>
-    <?php endforeach;} ?>
+    {% endfor %}
     </table>
+{% endif %}
 
-<?php require 'Partials/footer.php' ?>
+{% include 'Partials/footer.twig' %}
