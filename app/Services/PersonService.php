@@ -30,19 +30,14 @@ class PersonService
         return $this->storage->findPersonBy($condition);
     }
 
-    public function updateDescription(string $description, int $id): void
+    public function findPersonById(int $id): Person
     {
-        $this->storage->updateDescription($description, $id);
+        return $this->storage->findPersonById($id);
     }
 
-    public function updateAge(int $age, int $id): void
+    public function update(int $id, int $age, string $address, string $description): void
     {
-        $this->storage->updateAge($age, $id);
-    }
-
-    public function updateAddress(string $address, int $id): void
-    {
-        $this->storage->updateAddress($address, $id);
+        $this->storage->update( $id, $age, $address, $description);
     }
 
 }

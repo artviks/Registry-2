@@ -5,14 +5,17 @@ use App\Controllers\PersonsController;
 
 return FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r)
 {
+    // PagesController
     $r->addRoute('GET', '/', [PagesController::class, 'home']);
+    $r->addRoute('GET', '/add', [PagesController::class, 'add']);
+    $r->addRoute('GET', '/data', [PagesController::class, 'data']);
+    $r->addRoute('GET', '/search', [PagesController::class, 'search']);
 
+    // PersonController
+    $r->addRoute('GET', '/searchPerson', [PersonsController::class, 'search']);
+    $r->addRoute('GET', '/edit', [PersonsController::class, 'edit']);
 
-    $r->addRoute('GET', '/data', [PersonsController::class, 'data']);
-    $r->addRoute('GET', '/search', [PersonsController::class, 'search']);
+    $r->addRoute('POST', '/add', [PersonsController::class, 'add']);
+    $r->addRoute('POST', '/update', [PersonsController::class, 'update']);
 
-    $r->addRoute('POST', '/data', [PersonsController::class, 'add']);
-    $r->addRoute('POST', '/description', [PersonsController::class, 'updateDescription']);
-    $r->addRoute('POST', '/age', [PersonsController::class, 'updateAge']);
-    $r->addRoute('POST', '/address', [PersonsController::class, 'updateAddress']);
 });

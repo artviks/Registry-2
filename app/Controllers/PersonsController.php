@@ -15,20 +15,6 @@ class PersonsController
         $this->service = $service;
     }
 
-    public function data(): void
-    {
-        $persons = $this->service->selectAll();
-
-        require __DIR__ . './../../public/Views/data.view.php';
-    }
-
-    public function search(): void
-    {
-        $persons = $this->service->findPersonBy($_GET['condition']);
-
-        require __DIR__ . './../../public/Views/index.view.php';
-    }
-
     public function add(): void
     {
         $this->service->add(
@@ -36,35 +22,36 @@ class PersonsController
                 $_POST['name'],
                 $_POST['surname'],
                 $_POST['code'],
-                $_POST['description'],
+                $_POST['age'],
+                $_POST['address'],
+                $_POST['description']
             ));
 
         header('Location:/data');
     }
 
-    public function updateDescription(): void
+    public function search(): void
     {
-        $id = array_key_first($_POST);
-        $description = $_POST[$id];
-        $this->service->updateDescription($description, $id);
+        $persons = $this->service->findPersonBy($_GET['condition']);
 
-        header('Location:/data');
+        require __DIR__ . './../../public/Views/search.view.php';
     }
 
-    public function updateAge(): void
+    public function edit(): void
     {
-        $id = array_key_first($_POST);
-        $age = $_POST[$id];
-        $this->service->updateAge($age, $id);
+        $person = $this->service->findPersonById($_GET['id']);
 
-        header('Location:/data');
+        require __DIR__ . './../../public/Views/edit.view.php';
     }
 
-    public function updateAddress(): void
+    public function update(): void
     {
-        $id = array_key_first($_POST);
-        $address = $_POST[$id];
-        $this->service->updateAddress($address, $id);
+        $this->service->update(
+            $_POST ['id'],
+            $_POST['age'],
+            $_POST['address'],
+            $_POST['description']
+        );
 
         header('Location:/data');
     }

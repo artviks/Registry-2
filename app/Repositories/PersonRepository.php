@@ -13,10 +13,8 @@ interface PersonRepository
 
     public function findPersonBy(string $condition): PersonCollection;
 
-    public function updateDescription(string $description, int $id): void;
+    public function findPersonById(int $id): Person;
 
-    public function updateAge(int $age, int $id): void;
-
-    public function updateAddress(string $address, int $id): void;
+    public function update(int $id, int $age, string $address, string $description): void;
 
 }

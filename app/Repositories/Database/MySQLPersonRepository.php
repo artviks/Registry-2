@@ -27,11 +27,13 @@ class MySQLPersonRepository implements PersonRepository
     {
         $sql = sprintf(
             "insert into $this->table (
-                   name, surname, code, description)
-                    values ('%s', '%s', '%s', '%s')",
+                   name, surname, code, age, address, description)
+                    values ('%s', '%s', '%s', '%s', '%s', '%s')",
             $person->name(),
             $person->surname(),
             $person->code(),
+            $person->age(),
+            $person->address(),
             $person->description()
         );
 
@@ -45,26 +47,20 @@ class MySQLPersonRepository implements PersonRepository
         return $this->getPersonCollection($sql);
     }
 
-    public function updateDescription(string $description, int $id): void
+    public function findPersonById(int $id): Person
     {
-        $sql = "update $this->table set 
-                 description = '$description' where id = $id";
+        $sql = "select * from $this->table where id = $id";
+        $statement = $this->pdo->query($sql);
+        $person = $statement->fetch();
 
-        $this->pdo->exec($sql);
+        return $this->setPerson($person);
     }
 
-    public function updateAge(int $age, int $id): void
+    public function update(int $id, int $age, string $address, string $description): void
     {
-        $sql = "update $this->table set 
-                 age = $age where id = $id";
-
-        $this->pdo->exec($sql);
-    }
-
-    public function updateAddress(string $address, int $id): void
-    {
-        $sql = "update $this->table set 
-                 address = '$address' where id = $id";
+        $sql = "update $this->table
+                set age = $age, address = '$address', description = '$description'
+                where id = $id";
 
         $this->pdo->exec($sql);
     }
@@ -78,18 +74,24 @@ class MySQLPersonRepository implements PersonRepository
         $col = new PersonCollection();
         foreach ($persons as $person)
         {
-            $p = new Person(
-                $person['name'],
-                $person['surname'],
-                $person['code'],
-                $person['age'],
-                $person['address'],
-                $person['description'],
-            );
-            $p->setId($person['id']);
-            $col->add($p);
+            $col->add($this->setPerson($person));
         }
 
         return $col;
+    }
+
+    private function setPerson(array $person): Person
+    {
+        $p = new Person(
+            $person['name'],
+            $person['surname'],
+            $person['code'],
+            $person['age'],
+            $person['address'],
+            $person['description'],
+        );
+        $p->setId($person['id']);
+
+        return $p;
     }
 }

@@ -8,15 +8,15 @@ class Person
     private string $name;
     private string $surname;
     private string $code;
-    private ?string $description;
-    private ?string $age;
+    private ?int $age;
     private ?string $address;
+    private ?string $description;
 
     public function __construct(
         string $name,
         string $surname,
         string $code,
-        string $age = null,
+        int $age = null,
         string $address = null,
         string $description = null)
     {
@@ -43,7 +43,7 @@ class Person
         return $this->code;
     }
 
-    public function age(): ?string
+    public function age(): ?int
     {
         return $this->age;
     }
@@ -61,11 +61,6 @@ class Person
     public function id(): string
     {
         return $this->id;
-    }
-
-    public function setDescription(string $description): void
-    {
-        $this->description = $description;
     }
 
     public function setId(int $id): void

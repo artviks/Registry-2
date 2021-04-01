@@ -17,7 +17,8 @@ $container->add('service', PersonService::class)
 $container->add(PersonsController::class, PersonsController::class)
     ->addArgument('service');
 
-$container->add(PagesController::class, PagesController::class);
+$container->add(PagesController::class, PagesController::class)
+    ->addArgument('service');
 
 return $container;
 
