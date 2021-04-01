@@ -10,14 +10,15 @@ use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
 
-$loader = new FilesystemLoader('./../public/Views');
-$twig = new Environment($loader);
-
-
 $container = new Container();
 
-$container->add('twig', $twig);
+//twig dependencies
+$container->add('loader', FilesystemLoader::class)
+    ->addArgument('./../public/Views');
+$container->add('twig', Environment::class)
+    ->addArgument('loader');
 
+//controller dependencies
 $container->add('config', require __DIR__ . './../config.php');
 $container->add('connection', Connection::make($container->get('config')['database']));
 $container->add('database', MySQLPersonRepository::class)
@@ -25,9 +26,9 @@ $container->add('database', MySQLPersonRepository::class)
 $container->add('service', PersonService::class)
     ->addArgument('database');
 
+//router dependencies
 $container->add(PersonsController::class, PersonsController::class)
     ->addArguments(['service', 'twig']);
-
 $container->add(PagesController::class, PagesController::class)
     ->addArguments(['service', 'twig']);
 
