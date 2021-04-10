@@ -40,7 +40,7 @@ class MySQLPersonRepository implements PersonRepository
         $this->pdo->exec($sql);
     }
 
-    public function findPersonBy(string $condition): PersonCollection
+    public function findPersonBy(string $condition): ?PersonCollection
     {
         $sql = "select * from $this->table where '$condition' in (name, surname, code)";
 
@@ -66,10 +66,15 @@ class MySQLPersonRepository implements PersonRepository
     }
 
 
-    private function getPersonCollection(string $sql): PersonCollection
+    private function getPersonCollection(string $sql): ?PersonCollection
     {
         $statement = $this->pdo->query($sql);
         $persons = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        if (empty($persons))
+        {
+            return null;
+        }
 
         $col = new PersonCollection();
         foreach ($persons as $person)

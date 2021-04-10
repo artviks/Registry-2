@@ -7,8 +7,9 @@
         <input type="text" name="condition">
     </form>
 
+
 {% if persons %}
-    <br>
+
     <table>
     <tr>
         <th>Name</th>
@@ -18,7 +19,8 @@
         <th>Address</th>
         <th>Description</th>
     </tr>
-    {% for person in persons %}
+
+    {% for person in persons.collection() %}
         <tr>
             <td>{{ person.name }}</td>
             <td>{{ person.surname }}</td>
@@ -35,6 +37,7 @@
         </tr>
     {% endfor %}
     </table>
+
 {% endif %}
 
 {% include 'Partials/footer.twig' %}

@@ -4,5 +4,8 @@
         <li><a href="/data">DATA</a></li>
         <li><a href="/add">ADD</a></li>
         <li><a href="/search">SEARCH</a></li>
+        {% if loggedIn %}
+            <li><a href="/profile">PROFILE</a></li>
+        {%  endif %}
     </ul>
 </nav>

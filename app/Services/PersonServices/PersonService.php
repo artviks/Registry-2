@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\PersonServices;
 
 use App\Models\Person;
 use App\Models\PersonCollection;
@@ -25,7 +25,7 @@ class PersonService
         $this->storage->add($person);
     }
 
-    public function findPersonBy(string $condition): PersonCollection
+    public function findPersonBy(string $condition): ?PersonCollection
     {
         return $this->storage->findPersonBy($condition);
     }
@@ -37,7 +37,7 @@ class PersonService
 
     public function update(int $id, int $age, string $address, string $description): void
     {
-        $this->storage->update( $id, $age, $address, $description);
+        $this->storage->update($id, $age, $address, $description);
     }
 
 }

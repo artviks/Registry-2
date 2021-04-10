@@ -1,0 +1,15 @@
+{% include 'Partials/header.twig' %}
+
+<h2>PROFILE</h2>
+
+<p>Welcome {{ person.name }} {{ person.surname }}!</p>
+
+{% if loggedIn %}
+
+    <form method="get" action="/logOut">
+        <input type="submit" value="Log Out">
+    </form>
+
+{% endif %}
+
+{% include 'Partials/footer.twig' %}

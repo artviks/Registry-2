@@ -1,10 +1,12 @@
 <?php
 
-use App\FastRouter;
+use Core\FastRouter;
 
 require "../vendor/autoload.php";
 
-$container = require "../app/bootstrap.php";
-$routes = require '../app/routes.php';
+session_start();
+
+$container = require "../core/bootstrap.php";
+$routes = require '../core/routes.php';
 
 FastRouter::load($routes, $container);

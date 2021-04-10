@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Person;
-use App\Services\PersonService;
+use App\Services\PersonServices\PersonService;
 use Twig\Environment;
 
 class PersonsController
@@ -36,7 +36,7 @@ class PersonsController
     public function search(): void
     {
         $this->twig->display('search.view.twig', [
-            'persons' => $this->service->findPersonBy($_GET['condition'])->collection()
+            'persons' => $this->service->findPersonBy($_GET['condition'])
         ]);
     }
 
@@ -58,4 +58,5 @@ class PersonsController
 
         header('Location:/data');
     }
+
 }

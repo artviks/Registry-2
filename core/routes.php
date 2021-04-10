@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\PagesController;
+use App\Controllers\PersonAuthController;
 use App\Controllers\PersonsController;
 
 return FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r)
@@ -18,4 +19,8 @@ return FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r)
     $r->addRoute('POST', '/add', [PersonsController::class, 'add']);
     $r->addRoute('POST', '/update', [PersonsController::class, 'update']);
 
+    // PersonAuthController
+    $r->addRoute('GET', '/login', [PersonAuthController::class, 'login']);
+    $r->addRoute('GET', '/profile', [PersonAuthController::class, 'profile']);
+    $r->addRoute('GET', '/logOut', [PersonAuthController::class, 'logOut']);
 });

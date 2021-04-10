@@ -11,7 +11,7 @@ interface PersonRepository
 
     public function add(Person $person): void;
 
-    public function findPersonBy(string $condition): PersonCollection;
+    public function findPersonBy(string $condition): ?PersonCollection;
 
     public function findPersonById(int $id): Person;
 

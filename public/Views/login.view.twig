@@ -1,0 +1,15 @@
+{% include 'Partials/header.twig' %}
+
+{% if person %}
+
+    <p>Welcome {{ person.name }}!</p>
+
+{% endif %}
+
+{% if not person %}
+
+    <p>{{ error }}</p>
+
+{% endif %}
+
+{% include 'Partials/footer.twig' %}

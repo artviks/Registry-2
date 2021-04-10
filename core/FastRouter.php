@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Core;
 
 use FastRoute;
 use League\Container\Container;

@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Services\PersonService;
+use App\Services\PersonServices\PersonService;
 use Twig\Environment;
 
 class PagesController
@@ -37,5 +37,4 @@ class PagesController
     {
         $this->twig->display('search.view.twig');
     }
-
 }

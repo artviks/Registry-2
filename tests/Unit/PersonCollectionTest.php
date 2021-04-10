@@ -11,7 +11,14 @@ class PersonCollectionTest extends TestCase
     public function testAdd(): void
     {
         $persons = new PersonCollection();
-        $persons->add(new Person('A', 'B', '112233-12345', 'Cool'));
+        $persons->add(new Person(
+            'A',
+            'B',
+            '112233-12345',
+            30,
+            'Valka',
+            'Cool'
+        ));
 
         self::assertCount(1, $persons->collection());
         self::assertInstanceOf(Person::class, $persons->collection()[0]);
@@ -20,9 +27,9 @@ class PersonCollectionTest extends TestCase
     public function testAddMany(): void
     {
         $persons = new PersonCollection();
-        $persons->add(new Person('A', 'B', '112233-12345', 'Cool'));
-        $persons->add(new Person('A', 'B', '112233-12345', 'Cool'));
-        $persons->add(new Person('A', 'B', '112233-12345', 'Cool'));
+        $persons->add(new Person('A', 'B', '112233-12345'));
+        $persons->add(new Person('A', 'B', '112233-12345'));
+        $persons->add(new Person('A', 'B', '112233-12345'));
 
         self::assertCount(3, $persons->collection());
     }
