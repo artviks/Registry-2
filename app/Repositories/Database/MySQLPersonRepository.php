@@ -28,7 +28,7 @@ class MySQLPersonRepository implements PersonRepository
         $sql = sprintf(
             "insert into $this->table (
                    name, surname, code, age, address, description)
-                    values ('%s', '%s', '%s', '%s', '%s', '%s')",
+                    values ('%s', '%s', '%s', %s, '%s', '%s')",
             $person->name(),
             $person->surname(),
             $person->code(),

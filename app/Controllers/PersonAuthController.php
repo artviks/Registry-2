@@ -18,13 +18,19 @@ class PersonAuthController
         $this->twig = $twig;
     }
 
-
-    public function login(): void
+    public function getOtp(): void
     {
-        $this->twig->display('login.view.twig', [
-            'person' => $this->service->login($_GET['code']),
-            'error' => $this->service->error(),
+        $this->twig->display('index.view.twig', [
+            'otp' => $this->service->saveOtp($_GET['code'])
         ]);
+    }
+
+
+    public function logIn(): void
+    {
+        $this->service->checkOtp($_POST['code'], $_POST['otp']);
+
+        header('Location:/');
     }
 
     public function profile(): void

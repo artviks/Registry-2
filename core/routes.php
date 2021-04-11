@@ -20,7 +20,8 @@ return FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r)
     $r->addRoute('POST', '/update', [PersonsController::class, 'update']);
 
     // PersonAuthController
-    $r->addRoute('GET', '/login', [PersonAuthController::class, 'login']);
+    $r->addRoute('GET', '/getOtp', [PersonAuthController::class, 'getOtp']);
     $r->addRoute('GET', '/profile', [PersonAuthController::class, 'profile']);
     $r->addRoute('GET', '/logOut', [PersonAuthController::class, 'logOut']);
+    $r->addRoute('POST', '/logIn', [PersonAuthController::class, 'logIn']);
 });

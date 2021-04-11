@@ -25,7 +25,7 @@ class PersonAuthService
         $this->expiryInterval = new DateInterval(self::EXPIRES_AFTER);
     }
 
-    public function login(string $code): ?Person
+    public function saveOtp(string $code): ?string
     {
         $person = $this->findPerson($code);
 
@@ -35,29 +35,26 @@ class PersonAuthService
             return null;
         }
 
-        $this->save($person);
-        $_SESSION['auth_id'] = $code;
+        $otp = $this->generate();
+        $this->save($person, $otp);
 
-        return $person;
+        return $otp;
     }
 
-    public function isValid(string $code): bool
+    public function checkOtp(string $code, string $otp): bool
     {
-        $date = new DateTime('now', new DateTimeZone('Europe/Riga'));
-        $date->sub($this->expiryInterval);
+        if ($this->tokenRepository->getCode($otp) === $code)
+        {
+            $_SESSION['auth_id'] = $code;
+            return true;
+        }
 
-        return $this->tokenRepository->fetchAdded($code) > $date->format('Y-m-d H:i:s');
+        return false;
     }
 
     public function error(): string
     {
         return $this->error;
-    }
-
-
-    private function save(Person $person): void
-    {
-        $this->tokenRepository->save($person, $this->generate());
     }
 
     public function findPerson(string $code): ?Person
@@ -67,6 +64,11 @@ class PersonAuthService
         }
 
         return $this->repository->findPersonBy($code)->collection()[0];
+    }
+
+    private function save(Person $person, string $otp): void
+    {
+        $this->tokenRepository->save($person, $otp);
     }
 
     private function generate(): string

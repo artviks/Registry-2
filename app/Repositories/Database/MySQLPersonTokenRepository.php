@@ -30,6 +30,19 @@ class MySQLPersonTokenRepository implements PersonTokenRepository
         $this->pdo->exec($sql);
     }
 
+    public function getCode(string $otp): ?string
+    {
+        $sql = "select code from $this->table where otp = '$otp'";
+        $statement = $this->pdo->query($sql);
+        $code = $statement->fetch();
+
+        if (empty($code)) {
+            return null;
+        }
+
+        return $code[0];
+    }
+
     public function fetchAdded(string $code): string
     {
         $sql = "select added from $this->table where code = $code";
